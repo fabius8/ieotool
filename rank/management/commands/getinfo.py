@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from rank.models import Coin
 import ccxt
 import time
+import datetime
 
 binance = ccxt.binance()
 binance.load_markets()
@@ -20,7 +21,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for coin in Coin.objects.all():
             if coin.ieoexchange == 'binance':
-                update_coin(coin, binance)
+                #update_coin(coin, binance)
+                print("aa")
+
             if coin.ieoexchange == 'okex':
                 update_coin(coin, okex)
             if coin.ieoexchange == 'huobi':
@@ -30,4 +33,18 @@ def update_coin(coin, exchange):
     for symbol in exchange.markets:
         if symbol == coin.name + "/USDT":
             time.sleep(exchange.rateLimit / 1000)
-            history = exchange.fetchOHLCV(symbol, '1d')
+            history = exchange.fetchOHLCV(symbol, '1d', 1546272000000)
+            listhighest = []
+            for item in history:
+                listhighest.append(item[2])
+            # highest price
+            coin.ieohighprice = max(listhighest)
+            # Now price
+            coin.ieoprice = history[-1][4]
+            # IEO time
+            coin.ieotime_date = datetime.datetime.fromtimestamp(history[0][0]/1000)
+            print(type(coin.ieohighprice), coin.ieocost)
+            coin.ieohighestuppercent = float(coin.ieohighprice) / coin.ieocost
+            coin.ieocurrentuppercent = float(coin.ieoprice) / coin.ieocost
+            print(coin.ieohighestuppercent)
+            coin.save
