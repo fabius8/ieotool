@@ -21,15 +21,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for coin in Coin.objects.all():
             if coin.ieoexchange == 'binance':
-                #update_coin(coin, binance)
-                print("aa")
-
+                update_coin(coin, binance)
             if coin.ieoexchange == 'okex':
                 update_coin(coin, okex)
             if coin.ieoexchange == 'huobi':
                 update_coin(coin, huobi)
 
 def update_coin(coin, exchange):
+    print("update coin ", coin.name)
     for symbol in exchange.markets:
         if symbol == coin.name + "/USDT":
             time.sleep(exchange.rateLimit / 1000)
@@ -43,8 +42,6 @@ def update_coin(coin, exchange):
             coin.ieoprice = history[-1][4]
             # IEO time
             coin.ieotime_date = datetime.datetime.fromtimestamp(history[0][0]/1000)
-            print(type(coin.ieohighprice), coin.ieocost)
             coin.ieohighestuppercent = float(coin.ieohighprice) / coin.ieocost
             coin.ieocurrentuppercent = float(coin.ieoprice) / coin.ieocost
-            print(coin.ieohighestuppercent)
-            coin.save
+            coin.save()

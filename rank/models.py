@@ -11,4 +11,6 @@ class Coin(models.Model):
     ieohighestuppercent = models.FloatField(verbose_name='最高涨幅', default=0)
     ieocurrentuppercent = models.FloatField(verbose_name='现价涨幅', default=0)
 
+    def __str__(self):
+        return self.name
 
