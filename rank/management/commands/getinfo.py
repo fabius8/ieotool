@@ -28,6 +28,6 @@ class Command(BaseCommand):
 
 def update_coin(coin, exchange):
     for symbol in exchange.markets:
-        if symbol == coin.ieoname + "/USDT":
+        if symbol == coin.name + "/USDT":
             time.sleep(exchange.rateLimit / 1000)
             history = exchange.fetchOHLCV(symbol, '1d')
