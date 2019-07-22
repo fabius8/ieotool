@@ -8,7 +8,7 @@ binance = ccxt.binance()
 binance.load_markets()
 okex = ccxt.okex()
 okex.load_markets()
-huobi = ccxt.huobi()
+huobi = ccxt.huobipro()
 huobi.load_markets()
 
 # if binance.has['fetchOHLCV']:
