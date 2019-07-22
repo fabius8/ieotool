@@ -8,6 +8,11 @@ from .tables import CoinTable
 
 
 def coin(request):
-    table = CoinTable(Coin.objects.all())
+    table = CoinTable(Coin.objects.all(), exclude='time')
     RequestConfig(request).configure(table)
-    return render(request, 'rank/coin.html', {'table': table})
+    updatetime = Coin.objects.all().first().time
+    print(updatetime)
+    return render(request, 'rank/coin.html', {
+        'table': table,
+        'time': updatetime
+    })

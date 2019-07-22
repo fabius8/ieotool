@@ -3,10 +3,55 @@
 <!doctype html>
 <html>
     <head>
-      <title>List of Coins</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+      <title>IEO INFO</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     </head>
+
     <body>
-      {% render_table table %}
+
+      <nav class="navbar navbar-light fixed-top" style="background-color: #e2f2fd;">
+        <a class="navbar-brand" href="#">IEOTOOL</a>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card text-center">
+              <div class="card-header">
+                Featured
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">IEO收益统计</h5>
+                <p class="card-text">
+                  {% render_table table %}
+                </p>
+              </div>
+              <div class="card-footer text-muted">
+                {{ time }}
+                updated
+              </div>
+            </div>
+
+          </div>
+          <div class="col-6">
+          </div>
+          <div class="col">
+          </div>
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-5">
+            </div>
+            <div class="col">
+            </div>
+          </div>
+        </div>
+
+        <div>
+        </div>
+
     </body>
 </html>
