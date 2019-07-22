@@ -42,6 +42,6 @@ def update_coin(coin, exchange):
             coin.ieoprice = history[-1][4]
             # IEO time
             coin.ieotime_date = datetime.datetime.fromtimestamp(history[0][0]/1000)
-            coin.ieohighestuppercent = float(coin.ieohighprice) / coin.ieocost
-            coin.ieocurrentuppercent = float(coin.ieoprice) / coin.ieocost
+            coin.ieohighestuppercent = float(int((float(coin.ieohighprice) / coin.ieocost) * 1000)) / 1000
+            coin.ieocurrentuppercent = float(int((float(coin.ieoprice) / coin.ieocost) * 1000)) / 1000
             coin.save()
